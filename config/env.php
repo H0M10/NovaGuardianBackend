@@ -7,12 +7,6 @@
 // Detectar entorno
 $isProduction = getenv('RAILWAY_ENVIRONMENT') !== false || getenv('PRODUCTION') !== false;
 
-// DEBUG: Ver qué variables están disponibles
-error_log("DEBUG env.php: Usando getenv()");
-error_log("DEBUG env.php: DB_HOST=" . (getenv('DB_HOST') ?: 'NOT SET'));
-error_log("DEBUG env.php: DB_PORT=" . (getenv('DB_PORT') ?: 'NOT SET'));
-error_log("DEBUG env.php: DB_NAME=" . (getenv('DB_NAME') ?: 'NOT SET'));
-
 return [
     'environment' => $isProduction ? 'production' : 'development',
     

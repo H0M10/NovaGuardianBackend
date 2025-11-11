@@ -15,13 +15,8 @@ CorsMiddleware::apply();
 // Obtener la ruta solicitada
 $request_uri = $_SERVER['REQUEST_URI'];
 
-// DEBUG: Ver qué está recibiendo el servidor
-error_log("DEBUG: REQUEST_URI=" . $request_uri);
-error_log("DEBUG: SCRIPT_NAME=" . $_SERVER['SCRIPT_NAME']);
-
 // Parsear la URL para quitar query string
 $path = parse_url($request_uri, PHP_URL_PATH);
-error_log("DEBUG: path after parse_url=" . $path);
 
 // Remover index.php si está presente
 $path = preg_replace('#^/index\.php#', '', $path);
@@ -29,12 +24,8 @@ $path = preg_replace('#^/index\.php#', '', $path);
 // Limpiar las barras
 $path = trim($path, '/');
 
-error_log("DEBUG: path after trim=" . $path);
-
 // Separar la ruta en segmentos
 $segments = $path ? explode('/', $path) : [];
-
-error_log("DEBUG: segments=" . json_encode($segments));
 
 // Si el primer segmento es 'api', lo saltamos
 if (isset($segments[0]) && $segments[0] === 'api') {
@@ -43,9 +34,6 @@ if (isset($segments[0]) && $segments[0] === 'api') {
 
 // Obtener el recurso principal (usuarios, dispositivos, eventos, etc.)
 $resource = $segments[0] ?? '';
-
-// DEBUG
-error_log("DEBUG: final resource=$resource");
 
 // Obtener el ID si existe
 $id = $segments[1] ?? null;
@@ -66,7 +54,6 @@ if (empty($path) || $path === 'api') {
 switch ($resource) {
     case 'auth':
     case 'login':
-        error_log("DEBUG: Routing to AuthController, resource=$resource");
         require_once __DIR__ . '/controllers/AuthController.php';
         break;
         

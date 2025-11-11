@@ -26,10 +26,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'POST') {
     // Login
     try {
-        error_log("DEBUG AuthController: Iniciando login");
-        
         $input = json_decode(file_get_contents('php://input'), true);
-        error_log("DEBUG AuthController: Input recibido: " . json_encode($input));
         
         if (!isset($input['email']) || !isset($input['password'])) {
             Response::validationError([
@@ -38,12 +35,8 @@ if ($method === 'POST') {
             ]);
         }
         
-        error_log("DEBUG AuthController: Creando modelo Administrador");
         $adminModel = new Administrador();
-        
-        error_log("DEBUG AuthController: Buscando admin por email: " . $input['email']);
         $admin = $adminModel->findByEmail($input['email']);
-        error_log("DEBUG AuthController: Admin encontrado: " . ($admin ? 'SI' : 'NO'));
         
         if (!$admin) {
             Response::error('Credenciales incorrectas', 401);
