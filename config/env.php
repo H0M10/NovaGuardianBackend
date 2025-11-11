@@ -29,8 +29,8 @@ return [
     'cors' => [
         'allowed_origins' => $isProduction 
             ? [
-                'https://tu-usuario.github.io', // Cambiar por tu URL de GitHub Pages
-                $_SERVER['FRONTEND_URL'] ?? '*'
+                'https://h0m10.github.io',
+                $_SERVER['FRONTEND_URL'] ?? 'https://h0m10.github.io'
               ]
             : [
                 'http://localhost',
