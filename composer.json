@@ -1,0 +1,22 @@
+{
+  "name": "novaguardian/backend",
+  "description": "Backend API REST para NovaGuardian - Sistema IoT de Monitoreo",
+  "version": "1.0.0",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "firebase/php-jwt": "^6.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Hanniel Olvera",
+      "email": "hanniel@novaguardian.com"
+    }
+  ],
+  "license": "MIT"
+}

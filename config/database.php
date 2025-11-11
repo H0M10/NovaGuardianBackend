@@ -1,0 +1,19 @@
+<?php
+/**
+ * Configuración de Base de Datos
+ * NovaGuardian - Sistema IoT
+ */
+
+return [
+    'host' => 'localhost',
+    'port' => '3306',
+    'database' => 'novaguardian',
+    'username' => 'root',
+    'password' => 'HANNIEL',
+    'charset' => 'utf8mb4',
+    'options' => [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]
+];
