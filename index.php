@@ -14,13 +14,27 @@ CorsMiddleware::apply();
 
 // Obtener la ruta solicitada
 $request_uri = $_SERVER['REQUEST_URI'];
-$script_name = dirname($_SERVER['SCRIPT_NAME']);
-$path = str_replace($script_name, '', $request_uri);
-$path = parse_url($path, PHP_URL_PATH);
+
+// DEBUG: Ver qué está recibiendo el servidor
+error_log("DEBUG: REQUEST_URI=" . $request_uri);
+error_log("DEBUG: SCRIPT_NAME=" . $_SERVER['SCRIPT_NAME']);
+
+// Parsear la URL para quitar query string
+$path = parse_url($request_uri, PHP_URL_PATH);
+error_log("DEBUG: path after parse_url=" . $path);
+
+// Remover index.php si está presente
+$path = preg_replace('#^/index\.php#', '', $path);
+
+// Limpiar las barras
 $path = trim($path, '/');
 
+error_log("DEBUG: path after trim=" . $path);
+
 // Separar la ruta en segmentos
-$segments = explode('/', $path);
+$segments = $path ? explode('/', $path) : [];
+
+error_log("DEBUG: segments=" . json_encode($segments));
 
 // Si el primer segmento es 'api', lo saltamos
 if (isset($segments[0]) && $segments[0] === 'api') {
@@ -31,7 +45,7 @@ if (isset($segments[0]) && $segments[0] === 'api') {
 $resource = $segments[0] ?? '';
 
 // DEBUG
-error_log("DEBUG: path=$path, resource=$resource");
+error_log("DEBUG: final resource=$resource");
 
 // Obtener el ID si existe
 $id = $segments[1] ?? null;
