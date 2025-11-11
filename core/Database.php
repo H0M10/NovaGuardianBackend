@@ -19,7 +19,18 @@ class Database {
     private function __construct() {
         // Cargar configuración de entorno
         error_log("DEBUG Database: Cargando configuración");
-        $env = require_once __DIR__ . '/../config/env.php';
+        $env = require __DIR__ . '/../config/env.php';
+        
+        if (!is_array($env)) {
+            error_log("ERROR Database: env.php no devolvió un array");
+            throw new \Exception("Configuración inválida");
+        }
+        
+        if (!isset($env['database'])) {
+            error_log("ERROR Database: No existe env['database']");
+            throw new \Exception("Configuración de base de datos no encontrada");
+        }
+        
         $dbConfig = $env['database'];
         
         error_log("DEBUG Database: Config - host={$dbConfig['host']}, port={$dbConfig['port']}, db={$dbConfig['database']}, user={$dbConfig['username']}");
