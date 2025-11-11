@@ -28,6 +28,18 @@ $resource = $segments[1] ?? '';
 // Obtener el ID si existe
 $id = $segments[2] ?? null;
 
+// Health check para Railway
+if (empty($path) || $path === 'api') {
+    http_response_code(200);
+    echo json_encode([
+        'success' => true,
+        'message' => 'NovaGuardian API is running',
+        'version' => '1.0.0',
+        'status' => 'healthy'
+    ]);
+    exit;
+}
+
 // Ruteo básico
 switch ($resource) {
     case 'auth':
