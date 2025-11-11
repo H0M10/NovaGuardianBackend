@@ -22,11 +22,16 @@ $path = trim($path, '/');
 // Separar la ruta en segmentos
 $segments = explode('/', $path);
 
+// Si el primer segmento es 'api', lo saltamos
+if (isset($segments[0]) && $segments[0] === 'api') {
+    array_shift($segments);
+}
+
 // Obtener el recurso principal (usuarios, dispositivos, eventos, etc.)
-$resource = $segments[1] ?? '';
+$resource = $segments[0] ?? '';
 
 // Obtener el ID si existe
-$id = $segments[2] ?? null;
+$id = $segments[1] ?? null;
 
 // Health check para Railway
 if (empty($path) || $path === 'api') {
