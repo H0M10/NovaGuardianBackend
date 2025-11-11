@@ -30,6 +30,9 @@ if (isset($segments[0]) && $segments[0] === 'api') {
 // Obtener el recurso principal (usuarios, dispositivos, eventos, etc.)
 $resource = $segments[0] ?? '';
 
+// DEBUG
+error_log("DEBUG: path=$path, resource=$resource");
+
 // Obtener el ID si existe
 $id = $segments[1] ?? null;
 
@@ -49,6 +52,7 @@ if (empty($path) || $path === 'api') {
 switch ($resource) {
     case 'auth':
     case 'login':
+        error_log("DEBUG: Routing to AuthController, resource=$resource");
         require_once __DIR__ . '/controllers/AuthController.php';
         break;
         
