@@ -64,7 +64,13 @@ class Evento {
         ");
         
         $stmt->execute([$limit]);
-        return $stmt->fetchAll();
+        $result = $stmt->fetchAll();
+        
+        // Debug temporal
+        error_log("DEBUG Evento: Columnas = " . json_encode(array_keys($result[0] ?? [])));
+        error_log("DEBUG Evento: Primer registro = " . json_encode($result[0] ?? []));
+        
+        return $result;
     }
     
     /**
