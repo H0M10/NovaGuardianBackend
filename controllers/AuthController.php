@@ -1,4 +1,4 @@
-<?php
+USE railway;<?php
 /**
  * Controlador de Autenticación
  * Maneja login, logout y verificación de tokens
