@@ -18,16 +18,7 @@ class Database {
      */
     private function __construct() {
         // Cargar configuración de entorno
-        $env = require __DIR__ . '/../config/env.php';
-        
-        if (!is_array($env)) {
-            throw new \Exception("Configuración inválida");
-        }
-        
-        if (!isset($env['database'])) {
-            throw new \Exception("Configuración de base de datos no encontrada");
-        }
-        
+        $env = require_once __DIR__ . '/../config/env.php';
         $dbConfig = $env['database'];
         
         try {
@@ -47,7 +38,6 @@ class Database {
             );
             
         } catch (PDOException $e) {
-            error_log("ERROR Database: " . $e->getMessage());
             http_response_code(500);
             die(json_encode([
                 'success' => false,

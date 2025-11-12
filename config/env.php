@@ -5,23 +5,23 @@
  */
 
 // Detectar entorno
-$isProduction = getenv('RAILWAY_ENVIRONMENT') !== false || getenv('PRODUCTION') !== false;
+$isProduction = isset($_SERVER['RAILWAY_ENVIRONMENT']) || isset($_SERVER['PRODUCTION']);
 
 return [
     'environment' => $isProduction ? 'production' : 'development',
     
-    // Base de datos - Usar getenv() para Railway
+    // Base de datos
     'database' => [
-        'host' => getenv('DB_HOST') ?: 'localhost',
-        'port' => getenv('DB_PORT') ?: '3306',
-        'database' => getenv('DB_NAME') ?: 'novaguardian',
-        'username' => getenv('DB_USER') ?: 'root',
-        'password' => getenv('DB_PASSWORD') ?: 'HANNIEL',
+        'host' => $_SERVER['DB_HOST'] ?? 'localhost',
+        'port' => $_SERVER['DB_PORT'] ?? '3306',
+        'database' => $_SERVER['DB_NAME'] ?? 'novaguardian',
+        'username' => $_SERVER['DB_USER'] ?? 'root',
+        'password' => $_SERVER['DB_PASSWORD'] ?? 'HANNIEL',
     ],
     
     // JWT
     'jwt' => [
-        'secret_key' => getenv('JWT_SECRET') ?: 'NovaGuardian_2025_UTQ_Secret_Key_Change_In_Production',
+        'secret_key' => $_SERVER['JWT_SECRET'] ?? 'NovaGuardian_2025_UTQ_Secret_Key_Change_In_Production',
         'expiration_time' => 86400, // 24 horas
     ],
     
@@ -30,7 +30,7 @@ return [
         'allowed_origins' => $isProduction 
             ? [
                 'https://h0m10.github.io',
-                getenv('FRONTEND_URL') ?: 'https://h0m10.github.io'
+                $_SERVER['FRONTEND_URL'] ?? 'https://h0m10.github.io'
               ]
             : [
                 'http://localhost',
