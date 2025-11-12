@@ -14,13 +14,18 @@ CorsMiddleware::apply();
 
 // Obtener la ruta solicitada
 $request_uri = $_SERVER['REQUEST_URI'];
-$script_name = dirname($_SERVER['SCRIPT_NAME']);
-$path = str_replace($script_name, '', $request_uri);
-$path = parse_url($path, PHP_URL_PATH);
+
+// Parsear la URL para quitar query string
+$path = parse_url($request_uri, PHP_URL_PATH);
+
+// Remover index.php si está presente
+$path = preg_replace('#^/index\.php#', '', $path);
+
+// Limpiar las barras
 $path = trim($path, '/');
 
 // Separar la ruta en segmentos
-$segments = explode('/', $path);
+$segments = $path ? explode('/', $path) : [];
 
 // Si el primer segmento es 'api', lo saltamos
 if (isset($segments[0]) && $segments[0] === 'api') {
